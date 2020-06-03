@@ -191,7 +191,11 @@ module OFX
       end
 
       def to_decimal(amount)
-        BigDecimal.new(amount.to_s.gsub(',', '.'))
+        if amount.to_s.match(/NaN/i)
+          0
+        else
+          BigDecimal(amount.to_s.gsub(',', '.'))
+        end
       end
     end
   end
